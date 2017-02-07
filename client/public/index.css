@@ -1,0 +1,85 @@
+body{
+	background: #2980B9;
+	color: #ECF0F1;
+}
+
+h1{
+	font-family: 'Amatic SC', cursive;
+	margin: 0;
+	margin-bottom: 10px;
+	font-size: 3em;
+	transition: all 0.2s;
+	display: inline-block;
+}
+
+h1:hover{
+	cursor: pointer;
+	font-size: 3.1em;
+}
+
+.location{
+	font-family: 'Josefin Sans', sans-serif;
+	border: 2px solid #ECF0F1;
+	font-size: 1.25em;
+	color: #ECF0F1;
+	width: 600px;
+	height: 100px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #E74C3C;
+}
+
+.location:hover{
+	cursor: pointer;
+}
+
+.location p{
+	width: 500px;
+	text-align: center;
+}
+
+#location-input{
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.25em;
+	width: 300px;
+	border: 2px solid #ECF0F1;
+	height: 20px;
+	color: #ECF0F1;
+	display: block;
+	text-align: center;
+	margin: auto;
+	margin-bottom: 10px;
+	background: #2980B9;
+}
+
+#location-input:focus{
+	outline: none;
+}
+
+.row{
+	display: flex;
+	width: 100%;
+}
+
+.center{
+	justify-content: center;
+}
+
+p{
+	margin: 0;
+	height: 100%;
+	line-height: 100px;
+}
+
+span{
+	text-align: center;
+}
+
+.display-name .box-attendees{
+	display: none;
+}
+
+.display-attendees .box-name{
+	display: none;
+}
