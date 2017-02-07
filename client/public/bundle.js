@@ -31997,6 +31997,7 @@ var Index = function (_Component) {
       var _this2 = this;
 
       _Client2.default.get('/api/recentsearch', function (res) {
+        console.log(res);
         if (res) {
           _this2.setState({ search: res.res });
           _this2.loadResults();

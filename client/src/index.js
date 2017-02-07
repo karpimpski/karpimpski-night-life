@@ -10,6 +10,7 @@ class Index extends Component {
 
   componentDidMount(){
     Client.get('/api/recentsearch', (res) => {
+      console.log(res);
       if(res){
         this.setState({search: res.res});
         this.loadResults();

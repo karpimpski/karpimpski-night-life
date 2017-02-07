@@ -58,9 +58,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
+    cookieName: 'session',
     secret: 'aglhsha;asgq351021hgadlbvagq723ntaskg1',
     resave: true,
     saveUninitialized: true,
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000,
     store: new MemoryStore()
 }));
 app.use(passport.initialize());
@@ -109,8 +112,8 @@ app.get('/api/venues/:location', function(req, res){
 });
 
 app.get('/api/currentuser', function(req, res){
-  if(session.user){
-    res.end(JSON.stringify(session.user));
+  if(req.user){
+    res.end(JSON.stringify(req.user));
   }
   else{
     res.end(JSON.stringify(false));
@@ -118,12 +121,12 @@ app.get('/api/currentuser', function(req, res){
 });
 
 app.get('/api/loginsuccess', function(req, res){
-  session.user = req.user;
+  req.session.user = req.user;
   res.redirect('/');
 });
 
 app.get('/api/recentsearch', function(req, res){
-  session.recentSearch ? res.end(JSON.stringify({res: session.recentSearch})) : res.end(JSON.stringify(false));
+  req.session.recentSearch ? res.end(JSON.stringify({res: req.session.recentSearch})) : res.end(JSON.stringify(false));
 });
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
@@ -133,7 +136,7 @@ app.get('/auth/twitter/callback',
                                      failureRedirect: '/failure' }));
 
 app.patch('/api/rsvp', function(req, res){
-  User.findById(session.user._id, function(err, user){
+  User.findById(req.session.user._id, function(err, user){
     if(err) throw err;
     if(user.going.indexOf(req.body.location) < 0){
       user.going = user.going.concat(req.body.location);
@@ -153,7 +156,7 @@ app.patch('/api/rsvp', function(req, res){
         location.attendees = location.attendees - 1;
         location.save(function(err, newLocation){
           if(err) throw err;
-          User.findById(session.user._id, function(err, user){
+          User.findById(req.user._id, function(err, user){
             var index = user.going.indexOf(newLocation._id);
             user.going.splice(index, 1);
             user.save(function(err){
@@ -167,8 +170,8 @@ app.patch('/api/rsvp', function(req, res){
 });
 
 app.post('/api/recentsearch', function(req, res){
-  session.recentSearch = req.body.search;
-  res.end(JSON.stringify(session.recentSearch));
+  req.session.recentSearch = req.body.search;
+  res.end(JSON.stringify(req.session.recentSearch));
 });
 
 app.get('*', function(req, res){
