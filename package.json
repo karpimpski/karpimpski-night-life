@@ -6,8 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"node server\" \"cd client && webpack -d --watch\"",
-    "build": "cd client && webpack -p",
+    "build": "cd client && NODE_ENV=production webpack -p",
     "start": "node server"
+  },
+  "babel": {
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      }
+    }
   },
   "author": "Michael Karpinski",
   "license": "ISC",
@@ -32,6 +42,8 @@
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-transform-react-constant-elements": "^6.22.0",
+    "babel-plugin-transform-react-inline-elements": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "css-loader": "^0.26.1",
