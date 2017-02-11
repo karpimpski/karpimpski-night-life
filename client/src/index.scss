@@ -28,10 +28,12 @@ h1:hover{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background: #E74C3C;
+	transition: all 0.5s;
 }
 
 .location:hover{
 	cursor: pointer;
+	background: darken(#E74C3C, 5%);
 }
 
 .location p{
